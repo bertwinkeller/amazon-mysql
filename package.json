@@ -1,0 +1,20 @@
+{
+  "name": "amazon-mysql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bertwinkeller/amazon-mysql.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bertwinkeller/amazon-mysql/issues"
+  },
+  "homepage": "https://github.com/bertwinkeller/amazon-mysql#readme"
+}
