@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/bertwinkeller/amazon-mysql/issues"
   },
-  "homepage": "https://github.com/bertwinkeller/amazon-mysql#readme"
+  "homepage": "https://github.com/bertwinkeller/amazon-mysql#readme",
+  "dependencies": {
+    "mysql2": "^2.0.0"
+  }
 }
