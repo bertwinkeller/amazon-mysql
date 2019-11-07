@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/bertwinkeller/amazon-mysql#readme",
   "dependencies": {
+    "inquirer": "^7.0.0",
     "mysql2": "^2.0.0"
   }
 }
