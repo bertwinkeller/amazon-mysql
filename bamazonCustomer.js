@@ -28,25 +28,30 @@ db.connect(function(err) {
       console.log(`-------------------------------`)
 
       }
-      console.log(`---------PRESS ENTER---------`)
+      promptUser();
     });
+ 
+
   });
 
 //   inquirer prompt to user on which to item to buy 
-  inquirer
+function promptUser(){
+inquirer
   .prompt([
-      {
-     type: 'input',
-     name: 'idprompt',
-     message: 'What is the ID of the item you would like to purchase?'
-      },
-      {
-    type: 'input',
-    name: 'units',
-    message: 'How many units would you like to buy?'
-      }
     /* Pass your questions in here */
+    {
+      type: 'input',
+      message: 'What is the ID of the item you would like to buy?',
+      name: 'idprompt'
+    },
+    {
+      type: 'input',
+      message: 'How mmmmmany items would you like to purchase?',
+      name: 'qprompt'
+    }
   ])
   .then(answers => {
     // Use user feedback for... whatever!!
+    console.log(answers)
   });
+}
