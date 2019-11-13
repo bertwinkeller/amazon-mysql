@@ -54,15 +54,30 @@ inquirer
   .then(answers => {
     // Use user feedback for... whatever!!
     let id = answers.idprompt;
-    let stock = answers.qprompt
-    console.log(answers)
+    let quantity_requested = answers.qprompt
+
     db.query(`SELECT * FROM products WHERE item_id=${id}`,
     function(err, results){
       if (err){
         console.log(err)
       }
       let product_data = results[0]
-      console.log(product_data)
+      let price = product_data.price * quantity_requested
+      let updated_quantity = product_data.stock_quantity - quantity_requested
+      if(product_data.stock_quantity > quantity_requested){
+        console.log(`The total for this order amounts to : ${price}`)
+        console.log(`Purchasing ${quantity_requested} units of ${product_data.product_name}...`)
+        db.query('UPDATE products SET ? WHERE ?', [{
+          stock_quantity: updated_quantity,
+        },{
+          item_id: id
+        }])
+        console.log('Purhcase Successful')
+        promptUser();
+      }else{
+        console.log(`Insufficient Quantity, unable to purchase ${quantity_requested} units`)
+        promptUser();
+      }
     }
     )
   });
