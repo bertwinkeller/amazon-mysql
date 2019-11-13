@@ -1,12 +1,12 @@
 
 // require node packages
-var mysql = require('mysql2');
-var inquirer = require('inquirer');
+const mysql = require('mysql2');
+const inquirer = require('inquirer');
 
 
 
 // creates sql conncection
-var db = mysql.createConnection({
+ db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "password",
