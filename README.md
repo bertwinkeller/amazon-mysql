@@ -27,6 +27,6 @@
 
         * It then calculates the total, then updates the quantity in the mysql database
 
-         ![](./images/second.png)
+         ![](./images/second_2.png)
         
 
