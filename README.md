@@ -19,7 +19,7 @@
 
         * Running this application will first display all of the items available for sale. Include the ids, names, and prices of products for sale.
 
-        * ![](./images/display.png)
+         ![](./images/display.png)
 
         * The app should then prompt users with two messages.
             * The first should ask them the ID of the product they would like to buy.
@@ -27,6 +27,6 @@
 
         * It then calculates the total, then updates the quantity in the mysql database
 
-        * ![](./images/second.png)
+         ![](./images/second.png)
         
 
