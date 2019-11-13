@@ -16,12 +16,13 @@ var db = mysql.createConnection({
 // queries for the products upon application run
 db.connect(function(err) {
     if (err) throw err;
-    db.query("SELECT product_name,department_name,price FROM products", function (err, result, fields) {
+    db.query("SELECT item_id,product_name,department_name,price FROM products", function (err, result) {
       if (err) throw err;
       console.log(`------Welcome to Bamazon-------`)
       console.log('------Available Products-------')
       for(let i=0;i<result.length;i++){
       console.log(`-------------------------------`)
+      console.log(`ID: ${result[i].item_id}`)
       console.log(`Item: ${result[i].product_name}`)
       console.log(`Department: ${result[i].department_name}`)
       console.log(`Price: ${result[i].price}`)
@@ -46,12 +47,23 @@ inquirer
     },
     {
       type: 'input',
-      message: 'How mmmmmany items would you like to purchase?',
+      message: 'How many items would you like to purchase?',
       name: 'qprompt'
     }
   ])
   .then(answers => {
     // Use user feedback for... whatever!!
+    let id = answers.idprompt;
+    let stock = answers.qprompt
     console.log(answers)
+    db.query(`SELECT * FROM products WHERE item_id=${id}`,
+    function(err, results){
+      if (err){
+        console.log(err)
+      }
+      let product_data = results[0]
+      console.log(product_data)
+    }
+    )
   });
 }
