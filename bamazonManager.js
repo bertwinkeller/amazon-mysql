@@ -13,8 +13,12 @@ const db = mysql.createConnection({
     password: "password",
     database: "bamazon"
 });
+
+// starting function to select manager function 
 function initPrompt() {
+    console.log()
     inquirer.prompt([
+
         {
             type: 'list',
             name: 'inventoryOptions',
@@ -35,7 +39,7 @@ function initPrompt() {
                     addToInventory();
                     break;
                 case 'Add new product':
-
+                    addNewProduct();
                     break
             }
 
@@ -46,8 +50,11 @@ function initPrompt() {
 function viewProducts() {
     db.query("SELECT item_id,product_name,department_name,price,stock_quantity FROM products", function (err, result) {
         if (err) throw err;
-        console.log(`------Welcome to Bamazon-------`)
-        console.log('------Available Products-------')
+        const viewitemstxt = `
+
+------Current Bamazon Items----
+        `
+        console.log(viewitemstxt)
         for (let i = 0; i < result.length; i++) {
             console.log(`-------------------------------`)
             console.log(`ID: ${result[i].item_id}`)
@@ -59,16 +66,21 @@ function viewProducts() {
             console.log(`-------------------------------`)
 
         }
+        initPrompt();
+
     })
-    initPrompt();
+
 }
 
 function viewLowInventory() {
 
     db.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, result) {
         if (err) throw err;
-        console.log(`------Welcome to Bamazon-------`)
-        console.log('------Low Inventory Items------')
+        const lowInvTxt = `
+
+------Low Inventory Items------
+      `
+        console.log(lowInvTxt)
         for (let i = 0; i < result.length; i++) {
             console.log(`-------------------------------`)
             console.log(`ID: ${result[i].item_id}`)
@@ -80,9 +92,11 @@ function viewLowInventory() {
             console.log(`-------------------------------`)
 
         }
+        initPrompt();
+
     })
     // brings back the prompt
-    initPrompt();
+
 }
 
 // function to add inventory to existing items
@@ -103,7 +117,8 @@ function addToInventory() {
         .then(answers => {
             // Use user feedback to store variables for db query
             let id = answers.idprompt;
-            let quantity_requested = answers.qprompt
+            let quantity_requested = parseInt(answers.qprompt)
+
             db.query(`SELECT * FROM products WHERE item_id=${id}`,
                 function (err, results) {
                     if (err) {
@@ -116,10 +131,65 @@ function addToInventory() {
                     }, {
                         item_id: id
                     }])
-                    console.log('Invetory Updated')
+                    console.log('******Invetory Updated*****')
+                    console.log('Select another action below')
                     initPrompt();
                 }
 
             )
         })
 }
+
+// function to add products to the database
+function addNewProduct() {
+    inquirer.prompt([
+        {
+            name: 'name',
+            type: 'input',
+            message: 'Enter the product name:'
+        },
+        {
+            name: 'dept',
+            type: 'input',
+            message: 'Enter the product department:'
+        },
+        {
+            name: 'price',
+            type: 'input',
+            message: 'Enter the product price:',
+            validate: (value) => {
+                if (!isNaN(value) && value > 0) {
+                    return true;
+                } else {
+                    console.log(chalk.red(` => Oops, please enter a number greater than 0`));
+                    return false;
+                }
+            }
+        },
+        {
+            name: 'quantity',
+            type: 'input',
+            message: 'Enter the number of items in stock:',
+            validate: (value) => {
+                if (!isNaN(value) && value > 0) {
+                    return true;
+                } else {
+                    console.log(chalk.red(` => Oops, please enter a number greater than 0`));
+                    return false;
+                }
+            }
+        }
+    ]).then((answers) => {
+        db.query('INSERT INTO products SET ?', {
+            product_name: answers.name,
+            department_name: answers.dept,
+            price: answers.price,
+            stock_quantity: answers.quantity
+        })
+        initPrompt();
+    })
+}
+
+// Initializes prompt to start user input ß
+initPrompt();
+
