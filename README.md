@@ -47,6 +47,7 @@
         * If a manager selects Add New Product, it should allow the manager to add a completely new product to the store.
 
         ![](./images/addProduct.png)
+        ![](./images/sqlUpdate.png)
 
 
 
