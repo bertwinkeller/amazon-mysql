@@ -28,5 +28,32 @@
         * It then calculates the total, then updates the quantity in the mysql database
 
          ![](./images/second_2.png)
+
+    * node bamazonManager.js
+
+        * If a manager selects View Products for Sale, the app should list every available item: the item IDs, names, prices, and quantities.
+
+        ![](./images/managerView.png)
+
+        * If a manager selects View Low Inventory, then it should list all items with an inventory count lower than five.
+
+
+        ![](./images/lowInventory.png)
+
+        * If a manager selects Add to Inventory, your app should display a prompt that will let the manager "add more" of any item currently in the store.
+
+        ![](./images/addInventory.png)
+
+        * If a manager selects Add New Product, it should allow the manager to add a completely new product to the store.
+
+        ![](./images/addProduct.png)
+
+
+
+
+
+
+
+
         
 
